@@ -3,6 +3,7 @@
 \usepackage[letterpaper, left=1in, right=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage[table]{xcolor}
 \usepackage{tcolorbox}
 
 \newcommand{\solution}[1]{\begin{tcolorbox}[colback=white,colframe=black!70!white,title=Solution]
@@ -22,5 +23,218 @@
 \maketitle
 
 \section*{Question 1}
+Caches are important to providing a high-performance memory hierarchy to processors. Below is
+a list of 64-bit memory address references, given as word addresses.
+0x03, 0xb4, 0x2b, 0x02, 0xbf, 0x58, 0xbe, 0x0e, 0xb5, 0x2c, 0xba, 0xfd
+
+\vspace*{0.5 cm}
+a. For each of these references, identify the binary word address, the tag, and the
+index given a direct-mapped cache with 16 one-word blocks. Also list whether each
+reference is a hit or a miss, assuming the cache is initially empty. First insertion is already
+done so that you may get the idea.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \rowcolor[gray]{0.8}
+        Word Address & Binary Address  & Tag  & Index & Hit/Miss\\
+        \hline
+        0x03 & 0000 0011 & 0 & 3 & M\\
+        \hline
+        0xb4 & 1011 0100 & b & 4 & M\\
+        \hline
+        0x2b & 0010 1011 & 2 & b & M\\
+        \hline
+        0x02 & 0000 0010 & 0 & 2 & M\\
+        \hline
+        0xbf & 1011 1111 & b & f & M\\
+        \hline
+        0x58 & 0101 1000 & 5 & 8 & M\\
+        \hline
+        0xbe & 1011 1110 & b & e & M\\
+        \hline
+        0x0e & 0000 1110 & 0 & e & M\\
+        \hline
+        0xb5 & 1011 0101 & b & 5 & M\\
+        \hline
+        0x2c & 0010 1100 & 2 & c & M\\
+        \hline
+        0xba & 1011 1010 & b & a & M\\
+        \hline
+        0xfd & 1111 1101 & f & d & M\\
+        \hline
+    \end{tabular}
+    \label{tab:mytable}
+\end{table}
+
+b. For each of these references, identify the binary word address, the tag, the
+index, and the offset given a direct-mapped cache with two-word blocks and a total size of
+eight blocks. Also list if each reference is a hit or a miss, assuming the cache is initially
+empty.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \rowcolor[gray]{0.8}
+        Word Address & Binary Address  & Tag  & Index & offset & Hit/Miss\\
+        \hline
+        0x03 & 0000 0011 & 0 & 1 & 1 & M\\
+        \hline
+        0xb4 & 1011 0100 & b & 2 & 0 & M\\
+        \hline
+        0x2b & 0010 1011 & 2 & 5 & 1 & M\\
+        \hline
+        0x02 & 0000 0010 & 0 & 1 & 0 & H\\
+        \hline
+        0xbf & 1011 1111 & b & 7 & 1 & M\\
+        \hline
+        0x58 & 0101 1000 & 5 & 4 & 0 & M\\
+        \hline
+        0xbe & 1011 1110 & b & 6 & 0 & H\\
+        \hline
+        0x0e & 0000 1110 & 0 & 7 & 0 & M\\
+        \hline
+        0xb5 & 1011 0101 & b & 2 & 1 & H\\
+        \hline
+        0x2c & 0010 1100 & 2 & 6 & 0 & M\\
+        \hline
+        0xba & 1011 1010 & b & 5 & 0 & M\\
+        \hline
+        0xfd & 1111 1101 & f & 6 & 1 & M\\
+        \hline
+    \end{tabular}
+    \label{tab:mytable}
+\end{table}
+
+\section*{Question 3}
+
+Considering the address size of 64-bits, fill in the data for difference types of caches:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+        \hline
+        \rowcolor[gray]{0.8}
+         & Blocks  & Data per Block  & Sets & Associativity-ways & Tag Bits & Index Bits & Offset Bits\\
+        \hline
+        Fully Associative Cache & 8 & 8 words & \-- & 8 & 59 & 0 & 5\\
+        \hline
+        Direct Mapped Cache & 16 & 8 words & \-- & 1 & 55 & 4 & 5\\
+        \hline
+        Associative Cache & 32 & 8 words & 4 & 8 & 57 & 2 & 5\\
+        \hline
+        Direct Mapped Cache & 64 & 8 words & \-- & 1 & 53 & 6 & 5\\
+        \hline
+        Associative Cache & 128 & 8 words & 32 & 4 & 54 & 5 & 5\\
+        \hline
+        Associative Cache & 256 & 8 words & 32 & 8 & 54 & 5 & 5\\
+        \hline
+        Fully Associative Cache & 512 & 8 words & \-- & 512 & 59 & 0 & 5\\
+        \hline
+        Direct Mapped Cache & 1024 & 8 words & \-- & 1 & 49 & 10 & 5\\
+        \hline
+        Associative Cache & 2048 & 8 words & 64 & 32 & 53 & 6 & 5\\
+        \hline
+        Direct Mapped Cache & 4096 & 8 words & 64 & 32 & 53 & 6 & 5\\
+        \hline
+    \end{tabular}
+    \label{tab:mytable}
+\end{table}
+
+\section*{Question 5}
+
+We are given 4 arrays of size 6. Each element in an array is of 32 bytes i.e., one word. Following
+is the data stored in the array:
+\\A = (25, 48, 43, 30, 47, 36)
+\\B = (16, 29, 35, 38, 32, 41)
+\\C = (24, 33, 5, 39, 10, 14)
+\\D = (23, 7, 11, 44, 42, 22)
+\\The array data is arranged in main memory as follows:
+
+\begin{table}[h]
+    \begin{tabular}{|c|c|}
+        \hline
+        00000 & $A[0]$ \\
+        00001 & $A[1]$ \\
+        00010 & $A[2]$ \\
+        00011 & $A[3]$ \\
+        00100 & $A[4]$ \\
+        00101 & $A[5]$ \\
+        00110 & \\
+        00111 & \\
+        01000 & $B[0]$ \\
+        01001 & $B[1]$ \\
+        01010 & $B[2]$ \\
+        01011 & $B[3]$ \\
+        01100 & $B[4]$ \\
+        01101 & $B[5]$ \\
+        01110 & \\
+        01111 & \\
+        10000 & $C[0]$ \\
+        10001 & $C[1]$ \\
+        10010 & $C[2]$ \\
+        10011 & $C[3]$ \\
+        10100 & $C[4]$ \\
+        10101 & $C[5]$ \\
+        10110 & \\
+        10111 & \\
+        11000 & $D[0]$ \\
+        11001 & $D[1]$ \\
+        11010 & $D[2]$ \\
+        11011 & $D[3]$ \\
+        11100 & $D[4]$ \\
+        11101 & $D[5]$ \\
+        11110 & \\
+        11111 & \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\vspace*{0.5 cm}
+We are given a direct mapped cache which contains 8 blocks (each block will contain one word).
+Insert the following elements in cache one by one and also mention whether it was a hit or a miss.
+\\
+\\Assume that the first block of the cache will be populated by the first element of the array and so
+on. First insertion is already done so that you may get the idea.
+
+\begin{tabular}{|m{15mm} | m{17mm} | m{8.5mm} |m{8.5mm} |m{8.5mm} |m{8.5mm} |m{8.5mm} |m{8.5mm} |m{8.5mm} |m{8.5mm} |}
+    \hline
+    \rowcolor[gray]{0.8}
+    \raggedright\textbf{Data to \hspace*{3.5mm} be Inserted} &\raggedright \textbf{Hit/Miss} & \multicolumn{8}{|c|}{\textbf{Cache Index}} \\ \hline 
+    \rowcolor[gray]{0.8}
+    & & \hspace*{3mm}\textbf{0} & \hspace*{3mm}\textbf{1} & \hspace*{3mm}\textbf{2} & \hspace*{3mm}\textbf{3} & \hspace*{3mm}\textbf{4} & \hspace*{3mm}\textbf{5} & \hspace*{3mm}\textbf{6} & \hspace*{3mm}\textbf{7} \\ \hline
+    A[0] & M & A[0] & & & & & & & \\ \hline
+    A[1] & M & A[0] & A[1] & & & & & &\\ \hline
+    A[2] & M & A[0] & A[1] & A[2] & & & & &\\ \hline
+    A[1] & H & A[0] & \textcolor{red}{A[1]} & A[2] & & & & &\\ \hline
+    A[5] & M & A[0] & A[1] & A[2]& & & A[5] & &\\ \hline
+    B[5] & M & A[0] & A[1] & A[2] & & & \textcolor{blue}{B[5]} & &\\ \hline
+    B[4] & M & A[0] & A[1] & A[2] & & B[4] & B[5] & &\\ \hline
+    B[3] & M & A[0] & A[1] & A[2] & B[3] & B[4] & B[5] & &\\ \hline
+    B[3] & H & A[0] & A[1] & A[2] & \textcolor{red}{B[3]} & B[4] & B[5] & &\\ \hline
+    B[4] & H & A[0] & A[1] & A[2] & B[3] & \textcolor{red}{B[4]} & B[5] & &\\ \hline
+    D[1] & M & A[0] & \textcolor{blue}{D[1]} & A[2] & B[3] & B[4] & B[5] & &\\ \hline
+    D[2] & M & A[0] & D[1] & \textcolor{blue}{D[2]} & B[3] & B[4] & B[5] & &\\ \hline
+    D[3] & M & A[0] & D[1] & D[2] & \textcolor{blue}{D[3]} & B[4] & B[5] & &\\ \hline
+    D[4] & M & A[0] & D[1] & D[2] & D[3] & \textcolor{blue}{D[4]} & B[5] & &\\ \hline
+    C[3] & M & A[0] & D[1] & D[2] & \textcolor{blue}{C[3]} & D[4] & B[5] & &\\ \hline
+    C[2] & M & A[0] & D[1] & \textcolor{blue}{C[2]} & C[3] & D[4] & B[5] & &\\ \hline
+    C[4] & M & A[0] & D[1] & C[2] & C[3] & \textcolor{blue}{C[4]} & B[5] & &\\ \hline
+    C[2] & H & A[0] & D[1] & \textcolor{red}{C[2]} & C[3] & C[4] & B[5] & &\\ \hline
+\end{tabular}
+
+\vspace*{0.5 cm}
+What is the Hit Ratio and the Miss Ratio in the above case?
+
+\solution{
+    Number of hits = 4
+    \\Number of misses = 14
+    \\Total accesses to the Memory = 18
+    \\Hit Ratio = 4/18 = 0.222
+    \\Miss Ratio = 14/18 = 0.778
+}
+    
 
 \end{document}
